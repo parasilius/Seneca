@@ -25,7 +25,7 @@ def retrieveLetter(letterNum):
     return letter + f'\n&mdash; <cite>Lucius Annaeus Seneca, <em>Moral Letters to Lucilius</em>, {letterNum}</cite>'
         
 def retrieveRandomLetter():
-    letterNum = randint(1, 125)
+    letterNum = randint(1, 124)
     letter = ''
     soup = makeSoup(letterNum)
     paragraphs = soup.find(id='mw-content-text').find_all('p')
