@@ -14,12 +14,17 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    # `$letter {letterNum} {sectionNum}
     if message.content.startswith('$letter'):
         li = list(message.content.split())
         letterNum = li[1]
-        sectionNum = li[2]
-        await message.channel.send(crawler.retrieveSectionBySectionNumber(letterNum, sectionNum))
+        if len(li) == 2:
+            await message.channel.send(crawler.retrieveLetter(letterNum))
+        else:
+            sectionNum = li[2]
+            if li[2] == 'random':
+                await message.channel.send(crawler.retrieveRandomLetter())
+            else:
+                await message.channel.send(crawler.retrieveSectionBySectionNumber(letterNum, sectionNum))
 
 keep_alive()
 
