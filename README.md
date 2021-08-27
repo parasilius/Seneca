@@ -1,8 +1,6 @@
-# Distoicord
+# Seneca
 ![Distoicord, the stoic bot](images/WJuDg81F18inqzOKqpM3w-VP_6UiazlpJDeIWHLQO3w.jpg)
-Hi! I'm Distoicord, the stoic bot. I can read you Seneca's moral letters to 
-Lucilius, and I am improving to do much more! I can be your wise friend, and I 
-can bring wisdom to your channels.
+Hi! I'm Seneca, the stoic bot. I can read you my moral letters to Lucilius. I can be your wise friend, and I can bring wisdom to your channels.
 ## Command
 ```
 $letter [letter_number] [letter_section]
