@@ -10,12 +10,19 @@ ctx = ssl.create_default_context()
 ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE
 
-
 def makeSoup(letterNum):
     url = f'https://en.wikisource.org/wiki/Moral_letters_to_Lucilius/Letter_{letterNum}'
     html = urllib.request.urlopen(url, context=ctx).read()
     return BeautifulSoup(html, 'html.parser')
 
+def retrieveLetter(letterNum):
+    letter = ''
+    soup = makeSoup(letterNum)
+    paragraphs = soup.find(id='mw-content-text').find_all('p')
+    for paragraph in paragraphs:
+        letter += paragraph.text
+    return letter + f'\n&mdash; <cite>Lucius Annaeus Seneca, <em>Moral Letters to Lucilius</em>, {letterNum}</cite>'
+        
 def retrieveSectionBySectionNumber(letterNum, sectionNum):
     letter = ''
     soup = makeSoup(letterNum)
@@ -26,13 +33,9 @@ def retrieveSectionBySectionNumber(letterNum, sectionNum):
     if re.findall(pattern, letter)[0][0]:
         return re.findall(pattern, letter)[0][0] + f'\n&mdash; <cite>Lucius Annaeus Seneca, <em>Moral Letters to Lucilius</em>, {letterNum}.{sectionNum}</cite>'
     return re.findall(pattern, letter)[0][1] + f'\n&mdash; <cite>Lucius Annaeus Seneca, <em>Moral Letters to Lucilius</em>, {letterNum}.{sectionNum}</cite>'
-        
+
 if __name__ == '__main__':
     letterNum = input('Enter the letter number: ')
-    searchByString = input('Do you want to search by string? [y/n] ')
-    if searchByString == 'y' or searchByString == 'Y':
-        string = input('Enter the string: ')
-        print(retrieveSectionByString(letterNum, string))
-    else:
-        sectionNumber = input('Enter the section number: ')
-        print(retrieveSectionBySectionNumber(letterNum, sectionNumber))
+    print(retrieveLetter(letterNum));
+    sectionNumber = input('Enter the section number: ')
+    print(retrieveSectionBySectionNumber(letterNum, sectionNumber))
