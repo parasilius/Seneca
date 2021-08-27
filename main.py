@@ -18,7 +18,7 @@ async def on_message(message):
         li = list(message.content.split())
         letterNum = li[1]
         sectionNum = li[2]
-            await message.channel.send(crawler.retrieveSectionBySectionNumber(letterNum, sectionNum))
+        await message.channel.send(crawler.retrieveSectionBySectionNumber(letterNum, sectionNum))
 
 keep_alive()
 
