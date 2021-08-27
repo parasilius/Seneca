@@ -16,12 +16,6 @@ def makeSoup(letterNum):
     html = urllib.request.urlopen(url, context=ctx).read()
     return BeautifulSoup(html, 'html.parser')
 
-def retrieveSectionByString(letterNum, string):
-    soup = makeSoup(letterNum)
-    li = soup.find_all(string=re.compile(string))
-    if len(li) == 1:
-        return li[0]
-
 def retrieveSectionBySectionNumber(letterNum, sectionNum):
     letter = ''
     soup = makeSoup(letterNum)
