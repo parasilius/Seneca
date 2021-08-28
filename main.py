@@ -2,6 +2,7 @@ import discord
 import os
 import crawler
 from keep_alive import keep_alive
+from random import randint
 
 client = discord.Client()
 
@@ -16,9 +17,21 @@ async def on_message(message):
 
     if message.content.startswith('$letter'):
         li = list(message.content.split())
-        letterNum = li[1]
-        sectionNum = li[2]
-        await message.channel.send(crawler.retrieveSectionBySectionNumber(letterNum, sectionNum))
+        if li[1] == 'random':
+            letterNum = randint(1, 124)
+        else:
+            letterNum = li[1]
+        if len(li) == 3:
+            sectionNum = li[2]
+            await message.channel.send(crawler.retrieveSectionBySectionNumber(letterNum, sectionNum))
+        if len(li) == 2:
+            sectionNum = 1
+            while True:
+                try:
+                    await message.channel.send(crawler.retrieveSectionBySectionNumberWithNumber(letterNum, sectionNum))
+                    sectionNum += 1
+                except:
+                    break
 
 keep_alive()
 
