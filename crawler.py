@@ -50,6 +50,17 @@ def retrieveSectionBySectionNumberWithNumber(letterNum, sectionNum):
         return re.findall(pattern, letter)[0][0]
     return re.findall(pattern, letter)[0][1] + f'\n&mdash; <cite>Lucius Annaeus Seneca, <em>Moral Letters to Lucilius</em>, {letterNum}</cite>'
 
+def retrieveSectionBySectionForDatabase(letterNum, sectionNum):
+    letter = ''
+    soup = makeSoup(letterNum)
+    pattern = f'({sectionNum}\. [\s\S]*?)\d+\.|({sectionNum}\. [\s\S]*)'
+    paragraphs = soup.find(id='mw-content-text').find_all('p')
+    for paragraph in paragraphs:
+        letter += paragraph.text
+    if re.findall(pattern, letter)[0][0]:
+        return re.findall(pattern, letter)[0][0]
+    return re.findall(pattern, letter)[0][1]
+
 if __name__ == '__main__':
     letterNum = input('Enter the letter number(or random): ')
     if letterNum == 'random':
