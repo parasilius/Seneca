@@ -1,6 +1,6 @@
 import discord
 import os
-import crawler
+import database
 from keep_alive import keep_alive
 from random import randint
 
@@ -23,12 +23,12 @@ async def on_message(message):
             letterNum = li[1]
         if len(li) == 3:
             sectionNum = li[2]
-            await message.channel.send(crawler.retrieveSectionBySectionNumber(letterNum, sectionNum))
+            await message.channel.send(database.retrieveSection(letterNum, sectionNum))
         if len(li) == 2:
             sectionNum = 1
             while True:
                 try:
-                    await message.channel.send(crawler.retrieveSectionBySectionNumberWithNumber(letterNum, sectionNum))
+                    await message.channel.send(database.retrieveSection(letterNum, sectionNum))
                     sectionNum += 1
                 except:
                     break
