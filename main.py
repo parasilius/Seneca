@@ -4,7 +4,6 @@ import os
 import database
 from keep_alive import keep_alive
 from random import randint
-import sqlite3
 
 client = discord.Client()
 
